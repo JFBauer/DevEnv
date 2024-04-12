@@ -42,6 +42,9 @@ if ! gh auth status 2>&1 | grep -q 'Logged in to github.com'; then
     gh auth login
 fi
 
+# Set git to use the authentication setup through gh
+gh auth setup-git;
+
 # Installing go
 if ! command -v go &> /dev/null; then
 	wget https://go.dev/dl/go1.22.2.linux-amd64.tar.gz
