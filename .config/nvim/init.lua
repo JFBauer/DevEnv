@@ -310,7 +310,7 @@ require("lazy").setup({
 				-- },
 				pickers = {
 					find_files = {
-						hidden = true,
+						find_command = { "rg", "--files", "--hidden", "--follow", "--glob", "!.git/*" },
 					},
 				},
 				extensions = {

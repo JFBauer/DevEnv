@@ -4,6 +4,26 @@
 SCRIPT_PATH="$(realpath "$0")"
 SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
 
+# Getting all needed input from the user
+
+# Check if user name is set in .gitconfig
+git_username=$(git config --global user.name)
+if [ -z "$git_username" ]; then
+    read -p "Enter your the name you want to be used on GIT commits: " git_username
+    git config --global user.name "$git_username"
+fi
+
+# Check if email is set in .gitconfig
+git_email=$(git config --global user.email)
+if [ -z "$git_email" ]; then
+    read -p "Enter your the e-mail you want to be used on GIT commits: " git_email
+    git config --global user.email "$git_email"
+fi
+
+echo "Git configuration set:"
+echo "User name: $(git config --global user.name)"
+echo "Email: $(git config --global user.email)"
+
 # Installing applications needed by neovim (and possibly other things)
 sudo apt update
 sudo apt install -y unzip gcc ripgrep fd-find
@@ -21,7 +41,7 @@ fi
 if ! command -v go &> /dev/null; then
 	wget https://go.dev/dl/go1.22.2.linux-amd64.tar.gz
 	sudo rm -rf /usr/local/go ; sudo tar -C /usr/local -xzf go1.22.2.linux-amd64.tar.gz
-	sudo ln -s /usr/local/go/bin /usr/bin/go
+	sudo ln -s /usr/local/go/bin/go /usr/bin/go
 	sudo rm go1.22.2.linux-amd64.tar.gz
 fi
 
@@ -47,13 +67,13 @@ if ! command -v bw &> /dev/null; then
 fi
 
 # Copying over NeoVim config
-mkdir -p ~/.config
-cp -a "SCRIPT_DIR/.config/nvim" ~/.config
+mkdir -p $HOME/.config
+ln -s $HOME/NeoVim/.config/nvim $HOME/.config/nvim
 
 # Copying over our extended bashrc configuration
-cp "$SCRIPT_DIR/.extbashrc" "~/.extbashrc"
-if ! grep -qF -- "source \"~/.extbashrc\"" "~/.bashrc"; then
-	echo "source \"~/.extbashrc\"" >> "~/.bashrc"
+cp "$SCRIPT_DIR/.extbashrc" "$HOME/.extbashrc"
+if ! grep -qF -- "source \"$HOME/.extbashrc\"" "$HOME/.bashrc"; then
+	echo "source \"$HOME/.extbashrc\"" >> "$HOME/.bashrc"
 fi
 
 # Running .bashrc to load changes
