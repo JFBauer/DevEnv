@@ -78,14 +78,8 @@ fi
 mkdir -p $HOME/.config
 ln -s $HOME/NeoVim/.config/nvim $HOME/.config/nvim
 
-# Copying over our extended bashrc configuration
-cp "$SCRIPT_DIR/.extbashrc" "$HOME/.extbashrc"
-if ! grep -qF -- "source \"$HOME/.extbashrc\"" "$HOME/.bashrc"; then
-	echo "source \"$HOME/.extbashrc\"" >> "$HOME/.bashrc"
-fi
-
 # Running .bashrc to load changes
 source .bashrc
 
 # Confirmation message
-echo "Setup has ran succesful!"
+echo "Setup has ran successful!"
