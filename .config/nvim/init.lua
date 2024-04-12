@@ -36,7 +36,10 @@ vim.opt.relativenumber = true
 vim.opt.mouse = "a"
 
 -- Don't show the mode, since it's already in the status line
--- vim.opt.showmode = false
+vim.opt.showmode = false
+
+-- Don't show the visual selection in the command line, not sure if this disables anything else as well.
+vim.opt.showcmd = false
 
 -- Sync clipboard between OS and Neovim.
 vim.opt.clipboard = "unnamedplus"
@@ -749,23 +752,30 @@ require("lazy").setup({
 			-- - sr)'  - [S]urround [R]eplace [)] [']
 			-- require("mini.surround").setup()
 
-			-- Simple and easy statusline.
-			--  You could remove this setup call if you don't like it,
-			--  and try some other statusline plugin
-			local statusline = require("mini.statusline")
-			-- set use_icons to true if you have a Nerd Font
-			statusline.setup({ use_icons = vim.g.have_nerd_font })
-
-			-- You can configure sections in the statusline by overriding their
-			-- default behavior. For example, here we set the section for
-			-- cursor location to LINE:COLUMN
-			---@diagnostic disable-next-line: duplicate-set-field
-			statusline.section_location = function()
-				return "%2l:%-2v"
-			end
-
+			-- TODO: Let's check out everything there is to mini.nvim to see if we get some more ideas for adding to our setup.
 			-- ... and there is more!
 			--  Check out: https://github.com/echasnovski/mini.nvim
+		end,
+	},
+	{
+		"nvim-lualine/lualine.nvim",
+		opts = {
+			sections = {
+				lualine_a = { "mode" },
+				lualine_b = { "branch", "diff", "diagnostics" },
+				lualine_c = {
+					{ "filename", file_status = true, path = 1 },
+					-- TODO: Add git blame as a final addition to lualine to be able to see who did something. Additionally it might be good to be able to toggle git blame for all lines! Let's add both before removing this TODO.
+					-- { git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available },
+				},
+				lualine_x = { "encoding", "fileformat", "filetype" },
+				lualine_y = { "searchcount", "progress", "location", "selectioncount" },
+				lualine_z = { "os.date('%d-%m %T')" },
+			},
+			-- TODO: We should also add inactive_sections to have a clean bar displayed for any inactive windows.
+		},
+		config = function(_, opts)
+			require("lualine").setup(opts)
 		end,
 	},
 	{ -- Highlight, edit, and navigate code
