@@ -37,6 +37,11 @@ if ! command -v gh &> /dev/null; then
 	&& sudo apt install gh -y
 fi
 
+# Authenticating through gh if not already done
+if ! gh auth status 2>&1 | grep -q 'Logged in to github.com'; then
+    gh auth login
+fi
+
 # Installing go
 if ! command -v go &> /dev/null; then
 	wget https://go.dev/dl/go1.22.2.linux-amd64.tar.gz
