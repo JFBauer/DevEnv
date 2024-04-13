@@ -249,6 +249,7 @@ require("lazy").setup({
 
 			-- Document existing key chains
 			require("which-key").register({
+				["<leader>b"] = { name = "[B]uffer", _ = "which_key_ignore" },
 				["<leader>c"] = { name = "[C]ode", _ = "which_key_ignore" },
 				["<leader>d"] = { name = "[D]ocument", _ = "which_key_ignore" },
 				["<leader>g"] = { name = "[G]it", _ = "which_key_ignore" },
@@ -811,8 +812,9 @@ require("lazy").setup({
 		version = "^1.0.0", -- optional: only update when a new 1.x version is released
 		config = function(_, opts)
 			require("barbar").setup(opts)
-			vim.keymap.set("n", "<leader>bc", "<Cmd>BufferClose<CR>", {})
-			vim.keymap.set("n", "<leader>bw", "<Cmd>bufdo BufferClose<CR><Cmd>enew<CR>", {})
+			vim.keymap.set("n", "<leader>bc", "<Cmd>BufferClose<CR>", { desc = "[B]uffer [C]lose" })
+			vim.keymap.set("n", "<leader>b0", "<Cmd>bufdo BufferClose<CR><Cmd>enew<CR>", { desc = "[B]uffer Keep [0]" })
+			vim.keymap.set("n", "<leader>b1", "<Cmd>BufferCloseAllButCurrent<CR>", { desc = "[B]uffer Keep [1]" })
 			vim.api.nvim_create_autocmd({ "BufAdd", "BufReadPost" }, {
 				pattern = "*",
 				callback = function()
