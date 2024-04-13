@@ -162,6 +162,7 @@ require("lazy").setup({
 	{
 		"nvim-tree/nvim-tree.lua",
 		opts = {
+			sync_root_with_cwd = true,
 			sort = {
 				sorter = "case_sensitive",
 			},
@@ -940,6 +941,7 @@ require("lazy").setup({
 				"<Cmd>lua require('telescope').extensions.workspaces.workspaces()<CR>",
 				{ desc = "[F]ind [W]orkspaces" }
 			)
+			vim.api.nvim_set_keymap("n", "<leader>wa", "<Cmd>WorkspacesAdd<CR>", { desc = "[W]orkspace [A]dd" })
 		end,
 	},
 	{
