@@ -164,6 +164,16 @@ require("lazy").setup({
 	{
 		"tpope/vim-fugitive",
 		config = function()
+			local git_blame_open = false
+			vim.keymap.set("n", "<leader>gb", function()
+				if git_blame_open then
+					vim.cmd("Git blame gq")
+				else
+					vim.cmd("Git blame")
+				end
+				git_blame_open = not git_blame_open
+			end, { desc = "[G]it [B]lame" })
+
 			vim.api.nvim_set_keymap("n", "<leader>gs", ":Git status<CR>", { desc = "[G]it [S]tatus" })
 			vim.api.nvim_set_keymap("n", "<leader>gc", ":Git commit<CR>", { desc = "[G]it [C]ommit" })
 			vim.api.nvim_set_keymap("n", "<leader>gp", ":Git push<CR>", { desc = "[G]it [P]ush" })
@@ -765,8 +775,6 @@ require("lazy").setup({
 				lualine_b = { "branch", "diff", "diagnostics" },
 				lualine_c = {
 					{ "filename", file_status = true, path = 1 },
-					-- TODO: Add git blame as a final addition to lualine to be able to see who did something. Additionally it might be good to be able to toggle git blame for all lines! Let's add both before removing this TODO.
-					-- { git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available },
 				},
 				lualine_x = { "encoding", "fileformat", "filetype" },
 				lualine_y = { "searchcount", "progress", "location", "selectioncount" },
