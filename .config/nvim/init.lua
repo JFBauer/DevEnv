@@ -786,6 +786,41 @@ require("lazy").setup({
 			require("lualine").setup(opts)
 		end,
 	},
+	{
+		"romgrk/barbar.nvim",
+		dependencies = {
+			"lewis6991/gitsigns.nvim", -- OPTIONAL: for git status
+			"nvim-tree/nvim-web-devicons", -- OPTIONAL: for file icons
+		},
+		init = function()
+			vim.g.barbar_auto_setup = false
+		end,
+		opts = {
+			icons = {
+				-- Hiding the close button, closing is still possible of course using middle mouse button or the closing keymap/command.
+				button = false,
+				-- Enables / disables diagnostic symbols
+				diagnostics = {
+					[vim.diagnostic.severity.ERROR] = { enabled = true },
+					[vim.diagnostic.severity.WARN] = { enabled = true },
+					[vim.diagnostic.severity.INFO] = { enabled = true },
+					[vim.diagnostic.severity.HINT] = { enabled = true },
+				},
+			},
+		},
+		version = "^1.0.0", -- optional: only update when a new 1.x version is released
+		config = function(_, opts)
+			require("barbar").setup(opts)
+			vim.keymap.set("n", "<leader>bc", "<Cmd>BufferClose<CR>", {})
+			vim.keymap.set("n", "<leader>bw", "<Cmd>bufdo BufferClose<CR><Cmd>enew<CR>", {})
+			vim.api.nvim_create_autocmd({ "BufAdd", "BufReadPost" }, {
+				pattern = "*",
+				callback = function()
+					vim.cmd("BufferOrderByDirectory")
+				end,
+			})
+		end,
+	},
 	{ -- Highlight, edit, and navigate code
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
