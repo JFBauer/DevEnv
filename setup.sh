@@ -27,6 +27,11 @@ echo "Email: $(git config --global user.email)"
 # Installing applications needed by neovim (and possibly other things)
 sudo apt update
 sudo apt install -y unzip gcc ripgrep fd-find
+# installs NVM (Node Version Manager)
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+source .bashrc
+# download and install Node.js
+nvm install 20
 
 # Installing gh
 if ! command -v gh &> /dev/null; then
