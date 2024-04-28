@@ -2,7 +2,7 @@
 
 # Check if a URL is provided
 if [ "$#" -ne 1 ]; then
-    echo "Usage: $0 <repository-url>"
+    echo "Usage: $0 {User}/{Repo}"
     exit 1
 fi
 
@@ -10,7 +10,7 @@ fi
 URL=$1
 
 # Regular expression to extract username and repository name
-REGEX="github\.com/([^/]+)/([^/]+)(\.git)?"
+REGEX="([^/]+)/([^/]+)(\.git)?"
 
 if [[ $URL =~ $REGEX ]]; then
     USERNAME=${BASH_REMATCH[1]}
@@ -22,7 +22,7 @@ if [[ $URL =~ $REGEX ]]; then
     DEST_DIR="$HOME/$USERNAME/$REPO_NAME"
 
     # Clone the repository
-    git clone "$URL" "$DEST_DIR"
+    git clone "https://github.com/$URL" "$DEST_DIR"
 else
     echo "Invalid GitHub repository URL."
     exit 1

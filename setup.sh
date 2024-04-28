@@ -114,5 +114,8 @@ ln -s $SCRIPT_DIR/.config/nvim $HOME/.config/nvim
 log "Reloading .bashrc"
 source .bashrc
 
+# Copying shell commands to binary folder
+sudo cp $SCRIPT_DIR/scripts/* /usr/local/bin
+
 # Confirmation message
 log "Setup has ran successful!"
