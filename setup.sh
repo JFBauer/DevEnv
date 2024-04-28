@@ -80,6 +80,7 @@ if ! command -v nvim &> /dev/null; then
 	sudo apt-add-repository --yes ppa:fish-shell/release-3
 	sudo apt update
 	sudo apt install -y fish
+	# TODO:This isn't working currently! I should see how to fix this
 	chsh -s usr/bin/fish
 fi
 
