@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "$HOME/JFBauer/DevEnv/scripts/env_utils.sh"
+source "$HOME/JFBauer/DevEnv/scripts/git_utils.sh"
 
 # Check if a URL is provided
 if [ "$#" -ne 1 ]; then
@@ -23,16 +23,7 @@ if [[ $URL =~ $REGEX ]]; then
     # Destination directory
     DEST_DIR="$HOME/$USERNAME/$REPO_NAME"
 
-    if ! env_exists "GH_TOKEN_$USERNAME"; then
-        read -p "No PAT found for the User: $USERNAME, Please enter one now: " TOKEN
-        env_store "GH_TOKEN_$USERNAME" "$TOKEN"
-    fi
-
-    env_load
-
-    # Check for GitHub token in environment
-    GH_TOKEN_VAR="GH_TOKEN_${USERNAME}"
-    GH_TOKEN=${!GH_TOKEN_VAR}
+    GH_TOKEN=$(git_load_token "$USERNAME")
 
     # Clone the repository, maybe not the securest but it works
     git clone "https://$GH_TOKEN@github.com/$URL" "$DEST_DIR"
