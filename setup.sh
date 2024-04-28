@@ -112,6 +112,7 @@ ln -s $SCRIPT_DIR/.config/nvim $HOME/.config/nvim
 
 # Copying shell commands to binary folder
 sudo cp $SCRIPT_DIR/scripts/git_clone.sh /usr/local/bin/gc
+sudo cp $SCRIPT_DIR/scripts/git_pull.sh /usr/local/bin/gp
 
 # Confirmation message
 log "Setup has ran successful, you should close and re-open the terminal to make sure that everything is loaded correctly!"
