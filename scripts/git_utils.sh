@@ -16,7 +16,7 @@ git_load_token() {
 
     # Check for GitHub token in environment
     local gh_token_var="GH_TOKEN_${USERNAME}"
-    local gh_token=${!GH_TOKEN_VAR}
+    local gh_token=${!gh_token_var}
 
     echo "$gh_token"
 }
