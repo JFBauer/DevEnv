@@ -34,7 +34,7 @@ if [[ $URL =~ $REGEX ]]; then
     GH_TOKEN_VAR="GH_TOKEN_${USERNAME}"
     GH_TOKEN=${!GH_TOKEN_VAR}
 
-    # Clone the repository
+    # Clone the repository, maybe not the securest but it works
     git clone "https://$GH_TOKEN@github.com/$URL" "$DEST_DIR"
 else
     echo "Invalid GitHub repository URL."
