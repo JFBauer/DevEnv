@@ -108,7 +108,7 @@ fi
 # Creating a symlink for the NeoVim config
 log "Creating a symlink for the NeoVim config"
 mkdir -p $HOME/.config
-ln -s $HOME/NeoVim/.config/nvim $HOME/.config/nvim
+ln -s $SCRIPT_DIR/.config/nvim $HOME/.config/nvim
 
 # Running .bashrc to load changes
 log "Reloading .bashrc"
