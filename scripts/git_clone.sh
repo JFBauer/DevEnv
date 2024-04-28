@@ -24,14 +24,18 @@ if [[ $URL =~ $REGEX ]]; then
     DEST_DIR="$HOME/$USERNAME/$REPO_NAME"
 
     if ! env_exists "GH_TOKEN_$USERNAME"; then
-        read -p "No PAT found for the User: $USERNAME, Please enter one now: " token
-        env_store "GH_TOKEN_$USERNAME" token
+        read -p "No PAT found for the User: $USERNAME, Please enter one now: " TOKEN
+        env_store "GH_TOKEN_$USERNAME" "$TOKEN"
     fi
 
     env_load
 
+    # Check for GitHub token in environment
+    GH_TOKEN_VAR="GH_TOKEN_${USERNAME}"
+    GH_TOKEN=${!GH_TOKEN_VAR}
+
     # Clone the repository
-    git clone "https://github.com/$URL" "$DEST_DIR"
+    git clone -c http.extraHeader="Authorization: Bearer $GH_TOKEN" "https://github.com/$URL" "$DEST_DIR"
 else
     echo "Invalid GitHub repository URL."
     exit 1
