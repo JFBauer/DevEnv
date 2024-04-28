@@ -198,6 +198,7 @@ require("lazy").setup({
 
 			vim.api.nvim_set_keymap("n", "<leader>gs", ":Git status<CR>", { desc = "[G]it [S]tatus" })
 			vim.api.nvim_set_keymap("n", "<leader>gc", ":Git commit<CR>", { desc = "[G]it [C]ommit" })
+			-- TODO:This doesn't work as NeoVim does not run this in an interactive shell, we should probably just remake all the functions into NeoVim functions? Or run it in a terminal inside of NeoVim
 			vim.api.nvim_set_keymap("n", "<leader>gp", ":!gp<CR>", { desc = "[G]it [P]ush" })
 		end,
 	},
