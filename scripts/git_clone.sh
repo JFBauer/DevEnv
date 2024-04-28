@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source "$HOME/JFBauer/DevEnv/scripts/env_utils.sh"
+
 # Check if a URL is provided
 if [ "$#" -ne 1 ]; then
     echo "Usage: $0 {User}/{Repo}"
@@ -20,6 +22,13 @@ if [[ $URL =~ $REGEX ]]; then
 
     # Destination directory
     DEST_DIR="$HOME/$USERNAME/$REPO_NAME"
+
+    if ! env_exists "GH_TOKEN_$USERNAME"; then
+        read -p "No PAT found for the User: $USERNAME, Please enter one now: " token
+        env_store "GH_TOKEN_$USERNAME" token
+    fi
+
+    env_load
 
     # Clone the repository
     git clone "https://github.com/$URL" "$DEST_DIR"

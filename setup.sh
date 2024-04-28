@@ -80,7 +80,7 @@ if ! command -v nvim &> /dev/null; then
 	sudo apt-add-repository --yes ppa:fish-shell/release-3
 	sudo apt update
 	sudo apt install -y fish
-	sudo chsh -s fish
+	chsh -s usr/bin/fish
 fi
 
 # Installing neovim
@@ -110,12 +110,8 @@ log "Creating a symlink for the NeoVim config"
 mkdir -p $HOME/.config
 ln -s $SCRIPT_DIR/.config/nvim $HOME/.config/nvim
 
-# Running .bashrc to load changes
-log "Reloading .bashrc"
-source .bashrc
-
 # Copying shell commands to binary folder
-sudo cp $SCRIPT_DIR/scripts/* /usr/local/bin
+sudo cp $SCRIPT_DIR/scripts/git_clone.sh /usr/local/bin/gc
 
 # Confirmation message
-log "Setup has ran successful!"
+log "Setup has ran successful, you should close and re-open the terminal to make sure that everything is loaded correctly!"
