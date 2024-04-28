@@ -35,7 +35,7 @@ if [[ $URL =~ $REGEX ]]; then
     GH_TOKEN=${!GH_TOKEN_VAR}
 
     # Clone the repository
-    git clone -c http.extraHeader="Authorization: Bearer $GH_TOKEN" "https://github.com/$URL" "$DEST_DIR"
+    git clone "https://$GH_TOKEN@github.com/$URL" "$DEST_DIR"
 else
     echo "Invalid GitHub repository URL."
     exit 1
