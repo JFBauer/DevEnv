@@ -198,7 +198,7 @@ require("lazy").setup({
 
 			vim.api.nvim_set_keymap("n", "<leader>gs", ":Git status<CR>", { desc = "[G]it [S]tatus" })
 			vim.api.nvim_set_keymap("n", "<leader>gc", ":Git commit<CR>", { desc = "[G]it [C]ommit" })
-			vim.api.nvim_set_keymap("n", "<leader>gp", ":gp<CR>", { desc = "[G]it [P]ush" })
+			vim.api.nvim_set_keymap("n", "<leader>gp", ":!gp<CR>", { desc = "[G]it [P]ush" })
 		end,
 	},
 	-- diffview makes it so we access to a nicer diff.
